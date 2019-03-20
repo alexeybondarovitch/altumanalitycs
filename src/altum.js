@@ -19,11 +19,11 @@ export default class Altum {
     return altum;
   }
 
-  eat = (event, group=null, count=0, data={}, time=null) => {
+  log = (event, groups=[], count=0, data={}, time=null) => {
 
     this._eventManager.add({
       event,
-      group,
+      groups,
       count,
       data,
       time

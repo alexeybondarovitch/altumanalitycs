@@ -21,21 +21,12 @@ const getTimeStamp = testValue => {
   return timeStamp;
 }
 
-const getGroupObj = value => {
-  let data = {
-    group: isObject(value) && value.group || 
-           isString(value) && value || ''
-  };
-
-  return data;
-}
-
 class EventFactory {
-  static createEvent({id, event, group, count, data, time}) {
+  static createEvent({id, event, groups, count, data, time}) {
     const eventObj = {
               id,
               event: getEventType(event),
-              group: getGroupObj(group),
+              groups,
               count,
               data,
               time: getTimeStamp(time)

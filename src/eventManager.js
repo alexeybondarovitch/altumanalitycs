@@ -16,11 +16,11 @@ class EventManager {
     window.addEventListener('unload', this.flush);
   }
 
-  add = ({event, group, count, data, time}) => {
+  add = ({event, groups, count, data, time}) => {
     const eventObj = EventFactory.createEvent({
       id: this._userId,
       event,
-      group,
+      groups,
       count,
       data,
       time
