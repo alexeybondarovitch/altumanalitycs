@@ -1,5 +1,5 @@
-//import { post } from '../api/request';
-import { post } from '../api/debug';
+import { post } from '../api/request';
+//import { post } from '../api/debug';
 import endpoints from './endpoints';
 
 export const saveEvents = async(productId, events) => {

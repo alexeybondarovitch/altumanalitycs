@@ -26,7 +26,6 @@ class EventManager {
       time
     });
 
-    console.log(count);
     this._buffer.push(eventObj);
 
     if (this._buffer.length === BUFFER_SIZE) {
@@ -35,8 +34,10 @@ class EventManager {
   }
 
   flush = () => {
-    saveEvents(this._productId, this._buffer);
-    this._buffer = [];
+    if (this._buffer.length) {
+      saveEvents(this._productId, this._buffer);
+      this._buffer = [];
+    }
   }
 }
 

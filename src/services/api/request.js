@@ -1,7 +1,7 @@
 const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json'
-}
+};
 
 export const post = async (url, parameters, mode='no-cors') => (
   await fetch(url, {
