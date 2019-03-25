@@ -1,28 +1,13 @@
 import EventManager from './eventManager';
 
-let instance = null;
+let _instance = null;
 
-export default class Altum {
-  constructor(productId, userId) {
-    if(!instance){
-      instance = this;
-    }
+const _init = (instance, productId, userId) => {
 
-    if (!productId || !userId) {
-      throw new Error('ProductId and UserId should be provided.');
-    }
+  _instance = instance;
 
-    this._eventManager = new EventManager(productId, userId);
-  }
-
-  static init = (productId, userId) => {
-
-    const altum = new Altum(productId, userId);
-    return altum;
-  }
-
-  log = (event, groups=[], count=0, data={}, time=null) => {
-
+  instance._eventManager = new EventManager(productId, userId);
+  instance.log = function(event, groups = [], count = 0, data = {}, time = null) {
     this._eventManager.add({
       event,
       groups,
@@ -30,5 +15,26 @@ export default class Altum {
       data,
       time
     });
+  }
+}
+
+export default class Altum {
+  constructor() { }
+
+  static init = (productId, userId, globalInstance) => {
+    if (!productId || !userId) {
+      throw new Error('ProductId and UserId must be provided.');
+    }
+  
+    if (_instance) {
+      return _instance;
+    }
+
+    if (globalInstance) {
+      globalInstance.prototype = Object.create(Altum.prototype);
+    }
+
+    _init(globalInstance || new Altum(), productId, userId);
+    return _instance;
   }
 }

@@ -32,9 +32,13 @@ class EventManager {
     this._buffer.push(eventObj);
 
     if (this._buffer.length === BUFFER_SIZE) {
-      this._eventService.saveEvents(this._buffer);
-      this._buffer = [];
+      this.flush();
     }
+  }
+
+  flush = () => {
+    this._eventService.saveEvents(this._buffer);
+    this._buffer = [];
   }
 }
 
