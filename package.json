@@ -4,9 +4,11 @@
   "description": "event tracking",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf lib && rimraf dist",
     "dev": "webpack --config config/webpack.dev.js",
-    "build": "webpack --config config/webpack.prod.js"
+    "babel": "babel src --out-dir lib",
+    "build": "webpack --config config/webpack.prod.js",
+    "prepare": "npm run clean && npm run babel && npm run build"
   },
   "keywords": [
     "event",
@@ -24,8 +26,10 @@
     "@babel/preset-env": "^7.3.4",
     "acorn": "^6.1.1",
     "babel-loader": "^8.0.5",
+    "babel-preset-minify": "^0.5.0",
     "exports-loader": "^0.7.0",
     "imports-loader": "^0.8.0",
+    "rimraf": "^2.6.3",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-merge": "^4.2.1"

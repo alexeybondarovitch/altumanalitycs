@@ -14,26 +14,8 @@ module.exports = {
       {
         test: /\.m?js$/,
         exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  useBuiltIns: 'entry',
-                  corejs: 3,
-                  targets: {
-                    "ie": "11"
-                  }
-                }
-              ]
-            ],
-            plugins: ['@babel/plugin-proposal-class-properties',
-                      '@babel/plugin-transform-runtime'], 
-          }
-        }
-      }
+        use: ['babel-loader'],
+      },
     ],
   },
   plugins: [

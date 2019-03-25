@@ -1,6 +1,4 @@
-node_modules/
-dist/
-lib/
-build/
-.vscode/
+node_modules
+dist
+lib
 .npmignore

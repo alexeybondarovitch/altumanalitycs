@@ -15,3 +15,5 @@ import Altum from './altum';
     }
   }
 })(window);
+
+export default Altum;
