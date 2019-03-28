@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    altumanalitics: './src/index.js'
+    altumanalitics: './src/altum.js'
   },
   output: {
     filename: '[name].js',

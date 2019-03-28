@@ -1,40 +1,58 @@
 import EventManager from './eventManager';
 
-let _instance = null;
+const _init = (instance, config) => {
 
-const _init = (instance, productId, userId) => {
+  const { productId, userId } = config;
 
-  _instance = instance;
+  if (!productId) {
+    throw new Error('ProductId must be provided.');
+  }
 
+  instance.initialized = true;
   instance._eventManager = new EventManager(productId, userId);
-  instance.log = function(event, groups = [], count = 0, data = {}, time = null) {
+
+  instance.log = function (event, count = 1, options = {}) {
     this._eventManager.add({
       event,
-      groups,
       count,
-      data,
-      time
+      ...options
     });
   }
+
+  return instance;
 }
 
-export default class Altum {
-  constructor() { }
+const _initGlobal = () => {
+  const altum = window.Altum;
 
-  static init = (productId, userId, globalInstance) => {
-    if (!productId || !userId) {
-      throw new Error('ProductId and UserId must be provided.');
-    }
-  
-    if (_instance) {
-      return _instance;
-    }
+  if (!altum) return;
 
-    if (globalInstance) {
-      globalInstance.prototype = Object.create(Altum.prototype);
-    }
+  const { config, delayed = [] } = altum;
+  Altum.init(config);
 
-    _init(globalInstance || new Altum(), productId, userId);
-    return _instance;
+  delayed.forEach(([args, timeStamp]) => {
+    const [event, count, options = {}] = [...args];
+    options.time = options.time || timeStamp;
+    altum.log(event, count, options);
+  });
+}
+
+class Altum {
+  static init = (config) => {
+    const _instance = window.Altum || {};
+
+    //lib is already initialized
+    if (_instance.initialized) {
+      throw new Error('Altum is already initialized.');
+    }
+    const _config = config || {};
+    const altum = window.Altum = _init(_instance, _config);
+
+
+    return altum;
   }
 }
+
+_initGlobal();
+
+export default Altum;

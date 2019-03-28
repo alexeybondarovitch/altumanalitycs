@@ -2,7 +2,7 @@
   "name": "altumanalitics",
   "version": "1.0.1",
   "description": "event tracking",
-  "main": "lib/index.js",
+  "main": "lib/altum.js",
   "scripts": {
     "clean": "rimraf lib && rimraf dist",
     "dev": "webpack --config config/webpack.dev.js",
