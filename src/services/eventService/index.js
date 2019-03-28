@@ -1,5 +1,5 @@
-import { post, sendBeacon } from '../api/request';
-//import { post, sendBeacon } from '../api/debug';
+//import { post, sendBeacon } from '../api/request';
+import { post, sendBeacon } from '../api/debug';
 import endpoints from './endpoints';
 
 export default class EventAPIService {

@@ -1,10 +1,11 @@
 {
-  "name": "altumanalitics",
-  "version": "1.1.0",
+  "name": "altumanalytics",
+  "version": "1.1.1",
   "description": "event tracking",
   "main": "lib/altum.js",
   "scripts": {
     "clean": "rimraf lib && rimraf dist",
+    "test": "jest",
     "dev": "webpack --config config/webpack.dev.js",
     "babel": "babel src --out-dir lib",
     "build": "webpack --config config/webpack.prod.js",
@@ -29,6 +30,7 @@
     "babel-preset-minify": "^0.5.0",
     "exports-loader": "^0.7.0",
     "imports-loader": "^0.8.0",
+    "jest": "^24.5.0",
     "rimraf": "^2.6.3",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",

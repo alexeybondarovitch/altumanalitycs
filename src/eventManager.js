@@ -14,14 +14,14 @@ class EventManager {
   }
 
   handleWindowUnload = () => {
-    window.addEventListener('beforeunload', 
+    window.addEventListener('beforeunload',
     () => this._eventService.saveEvents(this._buffer, true),
     false);
   }
 
-  add = ({ event, groups, count, data, time }) => {
+  add = ({ event, userId, groups, count, data, time }) => {
     const eventObj = EventFactory.createEvent({
-      id: this._userId,
+      userId: userId || this._userId,
       event,
       groups,
       count,
