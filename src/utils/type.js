@@ -3,5 +3,24 @@ export const isString = value => {
 }
 
 export const isObject = value => {
-  return typeof(value) === 'object' && value !== null;
+  return typeof (value) === 'object' && value !== null;
+}
+
+export const isEmpty = value => {
+  value == null || value === '' || typeof value === 'undefined';
+}
+
+export const isNumber = value => !isNaN(value);
+
+export const isTimeStamp = value => {
+  return (new Date(value)).getTime() > 0;
+}
+
+export const isJson = value => {
+  try {
+    JSON.parse(value);
+  } catch (e) {
+    return false;
+  }
+  return true
 }

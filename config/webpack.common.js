@@ -2,6 +2,14 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
+  resolve: {
+    alias: {
+      '@src': path.resolve(__dirname, '../src'),
+      '@utils': path.resolve(__dirname, '../src/utils'),
+      '@errors': path.resolve(__dirname, '../src/errors'),
+      '@services': path.resolve(__dirname, '../src/services')
+    }
+  },
   entry: {
     altumanalitics: './src/altum.js'
   },

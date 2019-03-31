@@ -1,9 +1,9 @@
-import EventFactory from './eventFactory';
-import EventApiService from './services/eventService';
+import EventFactory from '../eventFactory';
+import EventApiService from '@services/eventService';
 
-const BUFFER_SIZE = 20;
+import { BUFFER_SIZE } from './const';
 
-class EventManager {
+export default class EventManager {
 
   constructor(productId, userId) {
     this._buffer = [];
@@ -15,7 +15,9 @@ class EventManager {
 
   handleWindowUnload = () => {
     window.addEventListener('beforeunload',
-    () => this._eventService.saveEvents(this._buffer, true),
+    () => {
+      this._eventService.saveEvents(this._buffer, true)
+    },
     false);
   }
 
@@ -29,7 +31,9 @@ class EventManager {
       time
     });
 
-    this._buffer.push(eventObj);
+    if (eventObj) {
+      this._buffer.push(eventObj);
+    }
 
     if (this._buffer.length === BUFFER_SIZE) {
       this.flush();
@@ -41,5 +45,3 @@ class EventManager {
     this._buffer = [];
   }
 }
-
-export default EventManager;

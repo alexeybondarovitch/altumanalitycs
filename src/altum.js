@@ -1,11 +1,13 @@
-import EventManager from './eventManager';
+import EventManager from './event/eventManager';
+import { InitializationError } from '@errors';
+
 
 const _init = (instance, config) => {
 
   const { productId, userId } = config;
 
   if (!productId) {
-    throw new Error('ProductId must be provided.');
+    throw new InitializationError('ProductId must be provided.');
   }
 
   instance.initialized = true;
@@ -43,7 +45,7 @@ class Altum {
 
     //lib is already initialized
     if (_instance.initialized) {
-      throw new Error('Altum is already initialized.');
+      throw new InitializationError('Altum is already initialized.');
     }
     const _config = config || {};
     const altum = window.Altum = _init(_instance, _config);
