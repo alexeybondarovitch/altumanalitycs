@@ -12,6 +12,12 @@
     ],
     "minify"
   ],
-  "plugins": ["@babel/plugin-proposal-class-properties",
-              "@babel/plugin-transform-runtime"]
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-runtime",
+    ["babel-plugin-webpack-alias",
+    {
+      "config": "./config/webpack.common.js"
+    }]
+  ]
 }
