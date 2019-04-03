@@ -4,7 +4,6 @@ import { ERROR_MESSAGES } from './const';
 import {
   parseCount,
   parseEventType,
-  parseUserId,
   parseTimeStamp
 } from './parsers';
 
@@ -37,8 +36,8 @@ class EventFactory {
       event: parseEventType(event),
       count: parseCount(count),
       time: parseTimeStamp(time),
-      groups,
       data,
+      groups,
     };
 
     try {

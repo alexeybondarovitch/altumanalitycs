@@ -3,7 +3,6 @@ import {
   isObject,
 } from '@utils/type';
 
-
 export const parseEventType = event => {
   const eventType = isObject(event) && event.type ||
     isString(event) && event;

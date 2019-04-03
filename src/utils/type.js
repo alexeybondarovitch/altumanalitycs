@@ -3,11 +3,11 @@ export const isString = value => {
 }
 
 export const isObject = value => {
-  return typeof (value) === 'object' && value !== null;
+  return typeof value === 'object' && value !== null;
 }
 
 export const isEmpty = value => {
-  value == null || value === '' || typeof value === 'undefined';
+  return value == null || value === '' || typeof value === 'undefined';
 }
 
 export const isNumber = value => !isNaN(value);
