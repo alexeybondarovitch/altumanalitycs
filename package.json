@@ -2,13 +2,12 @@
   "name": "altumanalytics",
   "version": "1.2.2",
   "description": "event tracking",
-  "main": "lib/altum.js",
+  "main": "lib/altumanalytics.min.js",
   "scripts": {
-    "clean": "rimraf lib && rimraf dist",
+    "clean": "rimraf lib",
     "dev": "webpack --config config/webpack.dev.js",
-    "babel": "babel src --out-dir lib",
     "build": "webpack --config config/webpack.prod.js",
-    "prepare": "npm run clean && npm run babel && npm run build"
+    "prepare": "npm run clean && npm run build"
   },
   "keywords": [
     "event",
@@ -24,7 +23,6 @@
     "@babel/plugin-transform-regenerator": "^7.4.0",
     "@babel/plugin-transform-runtime": "^7.4.0",
     "@babel/preset-env": "^7.3.4",
-    "acorn": "^6.1.1",
     "babel-loader": "^8.0.5",
     "babel-plugin-webpack-alias": "^2.1.2",
     "babel-preset-minify": "^0.5.0",

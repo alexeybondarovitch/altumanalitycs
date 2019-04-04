@@ -39,7 +39,7 @@ const _initGlobal = () => {
   });
 }
 
-class Altum {
+export class Altum {
   static init = (config) => {
     const _instance = window.Altum || {};
 
@@ -56,5 +56,3 @@ class Altum {
 }
 
 _initGlobal();
-
-export default Altum;

@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 
+const libraryName = "Altum";
+
 module.exports = {
   resolve: {
     alias: {
@@ -11,11 +13,13 @@ module.exports = {
     }
   },
   entry: {
-    altumanalitics: './src/altum.js'
+    altumanalytics: './src/index.js'
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, '../dist')
+    path: path.resolve(__dirname, '../lib'),
+    library: libraryName,
+    libraryTarget: 'umd',
   },
   module: {
     rules: [
