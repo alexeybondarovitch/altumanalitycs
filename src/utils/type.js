@@ -22,5 +22,5 @@ export const isJson = value => {
   } catch (e) {
     return false;
   }
-  return true
+  return true;
 }
