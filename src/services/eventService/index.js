@@ -1,15 +1,15 @@
 import { post, sendBeacon } from '../api/request';
 //import { post, sendBeacon } from '../api/debug';
-import endpoints from './endpoints';
+import { ENDPOINTS } from './endpoints';
 
-export default class EventAPIService {
+export class EventAPIService {
   constructor(productId) {
     this._productId = productId;
   }
 
   saveEvents = async (events, onUnload = false) => {
     if (!events || ! events.length) return;
-    const url = endpoints.SAVE_EVENTS;
+    const url = ENDPOINTS.SAVE_EVENTS;
     const data = {
       productId: this._productId,
       events

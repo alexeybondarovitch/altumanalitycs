@@ -1,4 +1,4 @@
-import Logger from '@utils/logger';
+import { Logger } from '@utils/logger';
 import { ERRORS } from '@errors/const';
 import { ERROR_MESSAGES } from './const';
 import {
@@ -29,7 +29,7 @@ const getErrorMessage = (ex, eventObj) => {
   return errorMessage;
 }
 
-class EventFactory {
+export class EventFactory {
   static createEvent({ userId, event, groups, count, data, time }) {
     const eventObj = {
       id: userId,
@@ -56,5 +56,3 @@ class EventFactory {
     }
   }
 }
-
-export default EventFactory;

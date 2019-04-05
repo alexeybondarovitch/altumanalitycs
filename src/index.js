@@ -1,7 +1,7 @@
 import { EventManager } from './event/eventManager';
 import { InitializationError } from '@errors';
 
-class Altum {
+class AltumAnalytics {
   constructor() {
     this._initialized = false;
     this._eventManager = null;
@@ -19,12 +19,11 @@ class Altum {
     if (!productId) {
       throw new InitializationError('ProductId must be provided.');
     }
-
     this._eventManager = new EventManager(productId, userId);
     return this;
   }
 
-  log = function (event, count = 1, options = {}) {
+  log = (event, count = 1, options = {}) => {
     if (!this._eventManager) {
       throw new InitializationError('Altum is not initialized.');
     }
@@ -50,17 +49,20 @@ const _initFromWindow = () => {
   }
 
   const { config, delayed = [] } = _altum;
-  const instance = new Altum();
+  const instance = new AltumAnalytics();
 
+  instance.init(config);
+
+  // we don't want to remove already existing link to Altum, so just copy all fields
   Object.keys(_altum).forEach(key => {
     delete _altum[key];
   });
 
-  Object.keys(instance).forEach(key => {
-    _altum[key] = instance[key];
-  });
-
-  _altum.init(config);
+  Object.assign(
+    _altum,
+     Object.create(Object.getPrototypeOf(instance)),
+    instance
+  );
 
   delayed.forEach(([args, timeStamp]) => {
     const [event, count, options = {}] = [...args];
@@ -71,6 +73,10 @@ const _initFromWindow = () => {
   return _altum;
 }
 
-const instance = _initFromWindow() || new Altum();
+const instance = _initFromWindow() || new AltumAnalytics();
+
+if (window) {
+  window.Altum = window.Altum || instance;
+}
 
 export const Altum = Object.freeze(instance);

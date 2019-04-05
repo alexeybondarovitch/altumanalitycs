@@ -1,15 +1,15 @@
-import EventFactory from '../eventFactory';
-import EventApiService from '@services/eventService';
+import { EventFactory } from '../eventFactory';
+import { EventAPIService } from '@services/eventService';
 
 import { BUFFER_SIZE } from './const';
 
-export default class EventManager {
+export class EventManager {
 
   constructor(productId, userId) {
     this._buffer = [];
     this._productId = productId;
     this._userId = userId;
-    this._eventService = new EventApiService(productId);
+    this._eventService = new EventAPIService(productId);
     this.handleWindowUnload();
   }
 

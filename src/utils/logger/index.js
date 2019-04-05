@@ -12,7 +12,7 @@ const error = (message) => {
   console.error(message);
 }
 
-export default class Loger {
+export class Logger {
   static log = (message, level = ERROR_LEVEL.INFO) => {
     switch (level) {
       case ERROR_LEVEL.ERROR:
@@ -30,14 +30,14 @@ export default class Loger {
   }
 
   static warn = (message) => {
-    Loger.log(message, ERROR_LEVEL.WARN);
+    Logger.log(message, ERROR_LEVEL.WARN);
   }
 
   static info = (message) => {
-    Loger.log(message, ERROR_LEVEL.INFO);
+    Logger.log(message, ERROR_LEVEL.INFO);
   }
 
   static error = (message) => {
-    Loger.log(message, ERROR_LEVEL.ERROR);
+    Logger.log(message, ERROR_LEVEL.ERROR);
   }
 }

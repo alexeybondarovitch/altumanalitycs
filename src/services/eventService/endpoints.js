@@ -1,5 +1,5 @@
 import { HOST } from '../const';
 
-export default {
+export const ENDPOINTS = {
   SAVE_EVENTS: `${HOST}/array/`,
 }

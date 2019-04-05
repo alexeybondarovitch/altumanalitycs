@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const libraryName = "Altum";
+const libraryName = "AltumAnalytics";
 
 module.exports = {
   resolve: {
@@ -20,6 +20,7 @@ module.exports = {
     path: path.resolve(__dirname, '../lib'),
     library: libraryName,
     libraryTarget: 'umd',
+    globalObject: 'this'
   },
   module: {
     rules: [
