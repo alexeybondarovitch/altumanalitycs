@@ -1,6 +1,6 @@
 {
   "name": "altumanalytics",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "event tracking",
   "main": "lib/altumanalytics.min.js",
   "scripts": {
