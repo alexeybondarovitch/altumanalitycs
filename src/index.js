@@ -79,4 +79,4 @@ if (window) {
   window.Altum = window.Altum || instance;
 }
 
-export const Altum = Object.freeze(instance);
+export const Altum = instance;
