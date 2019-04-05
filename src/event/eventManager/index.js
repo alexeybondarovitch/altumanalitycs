@@ -14,11 +14,12 @@ export class EventManager {
   }
 
   handleWindowUnload = () => {
-    global.addEventListener('beforeunload',
-    () => {
-      this._eventService.saveEvents(this._buffer, true)
-    },
-    false);
+    const { addEventListener } = global;
+    addEventListener && addEventListener('beforeunload',
+      () => {
+        this._eventService.saveEvents(this._buffer, true)
+      },
+      false);
   }
 
   add = ({ event, userId, groups, count, data, time }) => {

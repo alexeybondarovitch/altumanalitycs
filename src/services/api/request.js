@@ -15,7 +15,7 @@ export const post = async (url, content, mode='no-cors') => (
 export const sendBeacon = (url, content) => {
   const navigator = global.navigator;
   const data = JSON.stringify(content);
-  if (!navigator.sendBeacon || !navigator.sendBeacon(url, data)) {
+  if (!navigator || !navigator.sendBeacon || !navigator.sendBeacon(url, data)) {
     var t = new XMLHttpRequest();
     t.open('POST', url, false);
     Object.keys(headers).map(key => t.setRequestHeader(key, headers[key]));
