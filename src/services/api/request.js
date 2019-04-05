@@ -13,7 +13,7 @@ export const post = async (url, content, mode='no-cors') => (
 );
 
 export const sendBeacon = (url, content) => {
-  const navigator = window && window.navigator;
+  const navigator = global.navigator;
   const data = JSON.stringify(content);
   if (!navigator.sendBeacon || !navigator.sendBeacon(url, data)) {
     var t = new XMLHttpRequest();

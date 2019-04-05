@@ -1,5 +1,4 @@
 import { post, sendBeacon } from '../api/request';
-//import { post, sendBeacon } from '../api/debug';
 import { ENDPOINTS } from './endpoints';
 
 export class EventAPIService {

@@ -20,7 +20,7 @@ module.exports = {
     path: path.resolve(__dirname, '../lib'),
     library: libraryName,
     libraryTarget: 'umd',
-    globalObject: `(typeof self !== 'undefined' ? self : this)`
+    globalObject: 'this'
   },
   module: {
     rules: [
@@ -34,7 +34,7 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       Promise: 'es6-promise',
-      fetch: 'exports-loader?self.fetch!whatwg-fetch/dist/fetch.umd',
+      fetch: 'imports-loader?this=>global!exports-loader?global.fetch!cross-fetch'
     })
   ]
 };

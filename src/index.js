@@ -37,7 +37,7 @@ class AltumAnalytics {
 }
 
 const _initFromWindow = () => {
-  const _altum = window && window.Altum;
+  const _altum = global.Altum;
 
   if (!_altum) {
     return;
@@ -60,7 +60,7 @@ const _initFromWindow = () => {
 
   Object.assign(
     _altum,
-     Object.create(Object.getPrototypeOf(instance)),
+    Object.create(Object.getPrototypeOf(instance)),
     instance
   );
 
@@ -73,10 +73,6 @@ const _initFromWindow = () => {
   return _altum;
 }
 
-const instance = _initFromWindow() || new AltumAnalytics();
-
-if (window) {
-  window.Altum = window.Altum || instance;
-}
+const instance = global.Altum = _initFromWindow() || new AltumAnalytics();
 
 export const Altum = instance;

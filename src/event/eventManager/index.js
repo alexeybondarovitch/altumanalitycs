@@ -14,7 +14,7 @@ export class EventManager {
   }
 
   handleWindowUnload = () => {
-    window && window.addEventListener('beforeunload',
+    global.addEventListener('beforeunload',
     () => {
       this._eventService.saveEvents(this._buffer, true)
     },
