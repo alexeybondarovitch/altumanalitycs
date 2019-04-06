@@ -35,5 +35,4 @@ in the ```html <head> ``` tag. Right after it Altum object will exist in window 
 <script async src='./altumanalytics.min.js'></script>
 ```
 
-When included using script tag
-There is also another global powerbi which is an instance of the service.
+(Under development)
