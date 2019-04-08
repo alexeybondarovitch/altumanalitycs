@@ -126,7 +126,6 @@ Log javascript click event:
 ```javascript
 const eventObj = { type: 'click' };  //here will be js event object
 Altum.log(eventObj, 1);
-};
 ```
 
 Log event with custom data object:
