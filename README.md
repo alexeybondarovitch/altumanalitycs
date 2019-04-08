@@ -108,7 +108,7 @@ The ```log``` call has the folowing fields:
 <b>Options</b> object may contain next properties:
 
 | Field Name | Type  |  Description |
-|-------------------|-----------------|--------------|---------------------|
+|-------------------|-----------------|--------------|
 | data  | Object | Any data associated with tracked event. |
 | time  |  TimeStamp | js representation of time (example ```(new Date).getTime()```).
 If not provided, current UTC time will be used}|
