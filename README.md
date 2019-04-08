@@ -110,8 +110,7 @@ The ```log``` call has the folowing fields:
 | Field Name | Type  |  Description |
 |-------------------|-----------------|--------------|
 | data  | Object | Any data associated with tracked event. |
-| time  |  TimeStamp | js representation of time (example ```(new Date).getTime()```).
-If not provided, current UTC time will be used}|
+| time  |  TimeStamp | js representation of time (example ```(new Date).getTime()```). If not provided, current UTC time will be used|
 |userId |  String | User Identifier which will be associated with tracked event. (Usually Db Key). |
 |groups |  Array | Array of groups to categorize event for future using |
 
