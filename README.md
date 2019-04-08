@@ -96,11 +96,62 @@ The ```Altum.log``` method is how you send any event with it's data to our proce
 
 The ```log``` call has the folowing fields:
 
-<hr />
 
-| <b>Field Name</b> | <b>Required</b> | <b>Type</b>  |  <b>Description</b> |
+| Field Name | Required | Type  |  Description |
 |-------------------|-----------------|--------------|---------------------|
-| event  |  Required |  String or Object | Event Type which will be used to identificate.|
-| count  |  Required |  Float Number | Positive Number which will be associated with tracked event.<i>Note: If you do not pass a count, pass 1 as default</i>|
-|options | Optional | Object | A dictionary of options |
-</table>
+| event  |  Required |  String or Object | Event Type which will be used to identificate. If object provided, it should include property <b>type</b> in it.|
+| count  |  Required |  Float Number | Positive Number which will be associated with tracked event.
+<i>Note: If you do not pass a count, pass 1 as default.</i>|
+|options | Optional | Object | A dictionary of options (see details below). |
+
+
+<b>Options</b> object may contain next properties:
+
+| Field Name | Type  |  Description |
+|-------------------|-----------------|--------------|---------------------|
+| data  | Object | Any data associated with tracked event. |
+| time  |  TimeStamp | js representation of time (example ```(new Date).getTime()```).
+If not provided, current UTC time will be used}|
+|userId |  String | User Identifier which will be associated with tracked event. (Usually Db Key). |
+|groups |  Array | Array of groups to categorize event for future using |
+
+### Examples
+
+Log any custom event:
+
+```javascript
+Altum.log('My Amazing Event', 1)
+```
+
+Log javascript click event:
+
+```javascript
+const eventObj = { type: 'click' };  //here will be js event object
+Altum.log(eventObj, 1);
+};
+```
+
+Log event with custom data object:
+
+```javascript
+Altum.log(eventObj, 1, { data: { customProperty: 'customValue' }});
+```
+
+Log event with several groups:
+
+```javascript
+Altum.log('Grouped event', 1, { groups: ['First', 'Second']});
+```
+
+Log historical event:
+
+```javascript
+const historicalTime = (new Date('01-03-2015')).getTime();
+Altum.log('Grouped event', 1, { time: historicalTime });
+```
+
+Log user payment event:
+
+```javascript
+Altum.log('Payment', 100.34, { data: { objectId: 'egwg1251f' }, userId: '123456', groups: ['Payments'] })
+```
