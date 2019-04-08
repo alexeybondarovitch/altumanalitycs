@@ -76,16 +76,31 @@ After installation two global variables will be extractred:
 
 Altum is exported as the Singleton, so you don't need to create a new instance.
 
-To start using it you should provide your <b>Product Id</b> and <b>User Id</b>
+To use it you should provide your <b>Product Id</b> and <b>User Id</b>
 
 <b>Product Id</b> is required parameter, exception will be thrown if it is not provided.
 
 <b>User Id</b> is optional parameter during initialization, BUT if you don't provide it during initialization, you will have to add it in each Altum.log method call (see notice below).
 
-### Usage
+## Usage
 
 Altum provide only one API method which should be used in your application:
+
+<b>Log</b> method definition:
 
 ```javascript
 Altum.log(event, count, options);
 ```
+
+The ```Altum.log``` method is how you send any event with it's data to our processing center.
+
+The ```log``` call has the folowing fields:
+
+<hr />
+
+| <b>Field Name</b> | <b>Required</b> | <b>Type</b>  |  <b>Description</b> |
+|-------------------|-----------------|--------------|---------------------|
+| event  |  Required |  String or Object | Event Type which will be used to identificate.|
+| count  |  Required |  Float Number | Positive Number which will be associated with tracked event.<i>Note: If you do not pass a count, pass 1 as default</i>|
+|options | Optional | Object | A dictionary of options |
+</table>
