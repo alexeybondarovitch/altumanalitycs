@@ -2,7 +2,7 @@
 
 AltumAnalytics.js is designed to collect customer data and send it to machine learning service for future processing.
 
-We prefere to link our library as a smart advisor called Altum.
+We prefer to associate our library with a smart advisor called Altum.
 
 Altum helps you measure your users, product, and business. It calculates statistic for your business and generate advises about your customers, provide charts and different integrations.
 
@@ -16,20 +16,24 @@ Install from NPM
 npm install --save altumanalytics
 ```
 
-### Include the library via script or manually
+### Include the library via script or manually and initialize it
 
-The library is exported as a Universal Module (UMD), so there are couple ways of how you can start work with it.
+The library is exported as a Universal Module (UMD), so there are couple ways of using it.
 
 Ideally you would use module loader or compilation step to import using ES6 modules as:
 
 ```javascript
 import { Altum } from 'altumanalytics';
+
+Altum.init({productId: 'PRODUCT ID', userId: 'USER ID'});
 ```
 
 If you have Node.js environment or you prefer CommonJS modules then the library can be included as
 
 ```javascript
 const Altum = require('altumanalytics').Altum;
+
+Altum.init({productId: 'PRODUCT ID', userId: 'USER ID'});
 ```
 
 or even using AMD script loading
@@ -37,6 +41,8 @@ or even using AMD script loading
 ```javascript
 define(['altumanalytics'] , function (module) {
   const Altum = module.Altum;
+
+  Altum.init({productId: 'PRODUCT ID', userId: 'USER ID'});
   // do whatever you want
 });
 ```
@@ -52,9 +58,34 @@ in the ```<head> ``` tag using script below.
 <script async src='node_modules/altumanalytics/lib/altumanalytics.min.js'></script>
 ```
 
-### Initializing
+Instead of using npm you can also get library script from public CDNs:
+```html
+<script async src='https://unpkg.com/altumanalytics@latest/lib/altumanalytics.min.js'></script>
+```
 
+or
 
-<b>Don't forget to provide productId and (optionaly) userId in head script.</b>
+```html
+<script async src='https://cdn.jsdelivr.net/npm/altumanalytics@latest/lib/altumanalytics.min.js'></script>
+```
 
-(Under development)
+After installation two global variables will be extractred:
+<b>Altum</b> - instance of the library and <b>AltumAnalytics</b> - module definition.
+
+### Initialization
+
+Altum is exported as the Singleton, so you don't need to create a new instance.
+
+To start using it you should provide your <b>Product Id</b> and <b>User Id</b>
+
+<b>Product Id</b> is required parameter, exception will be thrown if it is not provided.
+
+<b>User Id</b> is optional parameter during initialization, BUT if you don't provide it during initialization, you will have to add it in each Altum.log method call (see notice below).
+
+### Usage
+
+Altum provide only one API method which should be used in your application:
+
+```javascript
+Altum.log(event, count, options);
+```
