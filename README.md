@@ -99,9 +99,8 @@ The ```log``` call has the folowing fields:
 
 | Field Name | Required | Type  |  Description |
 |-------------------|-----------------|--------------|---------------------|
-| event  |  Required |  String or Object | Event Type which will be used to identificate. If object provided, it should include property <b>type</b> in it.|
-| count  |  Required |  Float Number | Positive Number which will be associated with tracked event.
-<i>Note: If you do not pass a count, pass 1 as default.</i>|
+| event  |  Required |  String or Object | Event Type which will be used to identificate tracked event. If object provided, it should include property <b>type</b> in it.|
+| count  |  Required |  Float Number | Positive Number which will be associated with tracked event.<i>Note: If you do not pass a count, pass 1 as default.</i>|
 |options | Optional | Object | A dictionary of options (see details below). |
 
 
