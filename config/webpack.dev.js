@@ -1,11 +1,22 @@
-const path = require('path');
 const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
+const configs = require('./webpack.common.js');
 
-module.exports = merge(common, {
+const commonDevConfig = {
   mode: 'development',
   devtool: 'inline-source-map',
+
+}
+
+const serverDevConfig = merge(configs[0], commonDevConfig, {
+  output: {
+    filename: '[name].node.js',
+  }
+});
+
+const clientDevConfig = merge(configs[1], commonDevConfig, {
   output: {
     filename: '[name].js',
   }
 });
+
+module.exports = [serverDevConfig, clientDevConfig];

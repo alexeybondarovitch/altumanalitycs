@@ -1,9 +1,25 @@
 const path = require('path');
-const webpack = require('webpack');
+const merge = require('webpack-merge');
 
 const libraryName = "AltumAnalytics";
 
-module.exports = {
+const babelLoaderConfig = (env) => {
+  return {
+    test: /\.m?js$/,
+    exclude: /(node_modules|bower_components|lib)/,
+    use: {
+      loader: 'babel-loader',
+      options: {
+        envName: env
+      }
+    }
+  }
+}
+
+const commonConfig = {
+  entry: {
+    altumanalytics: './src/index.js'
+  },
   resolve: {
     alias: {
       '@src': path.resolve(__dirname, '../src'),
@@ -12,11 +28,12 @@ module.exports = {
       '@services': path.resolve(__dirname, '../src/services')
     }
   },
-  entry: {
-    altumanalytics: './src/index.js'
-  },
+};
+
+const serverConfig = merge(commonConfig, {
+  target: 'node',
   output: {
-    filename: '[name].js',
+    filename: '[name].node.js',
     path: path.resolve(__dirname, '../lib'),
     library: libraryName,
     libraryTarget: 'umd',
@@ -24,17 +41,25 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: ['babel-loader'],
-      },
-    ],
+      babelLoaderConfig('node')
+    ]
+  }
+});
+
+const clientConfig = merge(commonConfig, {
+  target: 'web',
+  output: {
+    filename: '[name].js',
+    path: path.resolve(__dirname, '../lib'),
+    library: libraryName,
+    libraryTarget: 'umd',
+    globalObject: 'window'
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      Promise: 'es6-promise',
-      fetch: 'imports-loader?this=>global!exports-loader?global.fetch!cross-fetch'
-    })
-  ]
-};
+  module: {
+    rules: [
+      babelLoaderConfig('client')
+    ]
+  }
+});
+
+module.exports = [serverConfig, clientConfig];

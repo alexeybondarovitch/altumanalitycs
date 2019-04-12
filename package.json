@@ -2,7 +2,10 @@
   "name": "altumanalytics",
   "version": "1.2.11",
   "description": "event tracking",
-  "main": "lib/altumanalytics.min.js",
+  "repository": "github:BondarovitchAA/altumanalitycs",
+  "homepage": "https://github.com/BondarovitchAA/altumanalitycs",
+  "main": "lib/altumanalytics.node.min.js",
+  "browser": "lib/altumanalytics.min.js",
   "scripts": {
     "clean": "rimraf lib",
     "dev": "webpack --config config/webpack.dev.js",
@@ -11,10 +14,12 @@
   },
   "keywords": [
     "event",
-    "track"
+    "track",
+    "statistic",
+    "analysis"
   ],
   "author": "Alexey Bondarovitch",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
@@ -25,9 +30,6 @@
     "@babel/preset-env": "^7.3.4",
     "babel-loader": "^8.0.5",
     "babel-plugin-webpack-alias": "^2.1.2",
-    "babel-preset-minify": "^0.5.0",
-    "exports-loader": "^0.7.0",
-    "imports-loader": "^0.8.0",
     "rimraf": "^2.6.3",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",

@@ -1,4 +1,5 @@
 export const ERRORS = {
   VALIDATION: 'ValidationError',
-  INITIALIZATION: 'InitializationError'
+  INITIALIZATION: 'InitializationError',
+  SERVER: 'ServerError'
 };

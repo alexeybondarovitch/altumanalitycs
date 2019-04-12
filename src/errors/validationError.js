@@ -1,6 +1,6 @@
 import { ERRORS } from './const';
 
-export default class ValidationError extends Error {
+export class ValidationError extends Error {
   constructor(message) {
     super(message);
 

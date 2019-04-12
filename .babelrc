@@ -1,23 +1,45 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "useBuiltIns": "usage",
-        "corejs": "3",
-        "targets": {
-          "ie": "11"
-        }
-      },
-    ],
-    "minify"
-  ],
+  "env": {
+    "node": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "node": true
+            }
+          },
+        ],
+      ],
+    },
+    "client": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": "usage",
+            "corejs": "3",
+            "targets": {
+              "ie": "11"
+            }
+          },
+        ],
+      ],
+    }
+  },
   "plugins": [
     "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-transform-runtime",
-    ["babel-plugin-webpack-alias",
-    {
-      "config": "./config/webpack.common.js"
-    }]
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "useESModules": true
+      }
+    ],
+    [
+      "babel-plugin-webpack-alias",
+      {
+        "config": "./config/webpack.common.js"
+      }
+    ]
   ]
 }
