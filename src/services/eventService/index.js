@@ -1,4 +1,4 @@
-import { post, sendBeacon } from '../api/request';
+import { request, sendBeacon } from '../api/request';
 import { ENDPOINTS } from './endpoints';
 
 export class EventAPIService {
@@ -7,14 +7,22 @@ export class EventAPIService {
   }
 
   saveEvents = async (events, onUnload = false) => {
-    if (!events || ! events.length) return;
-    const url = ENDPOINTS.SAVE_EVENTS;
-    const data = {
+    if (!events || !events.length) return;
+    const url = ENDPOINTS.SAVE_EVENTS.url;
+    const payload = {
       productId: this._productId,
       events
     }
 
-    onUnload && sendBeacon(url, data) || await post(url, data);
+    if (onUnload) {
+      sendBeacon(url, payload);
+    } else {
+      await request({
+        url,
+        method: ENDPOINTS.SAVE_EVENTS.method,
+        payload
+      });
+    }
   }
 }
 

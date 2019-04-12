@@ -4,7 +4,8 @@ import { ERROR_MESSAGES } from './const';
 import {
   parseCount,
   parseEventType,
-  parseTimeStamp
+  parseTimeStamp,
+  parseData,
 } from './parsers';
 
 import { describe } from '@utils/validation';
@@ -36,7 +37,7 @@ export class EventFactory {
       event: parseEventType(event),
       count: parseCount(count),
       time: parseTimeStamp(time),
-      data,
+      data: parseData(data),
       groups,
     };
 

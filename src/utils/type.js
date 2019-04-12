@@ -17,6 +17,9 @@ export const isTimeStamp = value => {
 }
 
 export const isJson = value => {
+  if (!isObject(value)){
+    return false;
+  }
   try {
     JSON.parse(value);
   } catch (e) {

@@ -34,3 +34,16 @@ export const parseCount = testValue => {
 
   return count;
 }
+
+export const parseData = testValue => {
+  if (isString(testValue)) {
+    try {
+      const parsedData = JSON.parse(testValue);
+      if (isObject(parsedData)) {
+        return parsedData;
+      }
+    } catch {}
+  }
+
+  return testValue;
+}
