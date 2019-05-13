@@ -1,1 +1,1 @@
-export const HOST = 'https://altumanalytics.com'
+export const HOST = 'altumanalytics.com'
