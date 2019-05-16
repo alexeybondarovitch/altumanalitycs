@@ -4,10 +4,10 @@ import {
 } from '@utils/type';
 
 export const parseUserId = testValue => {
-  let userId = testValue;
-  if (Number.isSafeInteger(testValue) && testValue > 0) {
-    userId = testValue.toString();
-  }
+  let userId = (Number.isSafeInteger(testValue) && testValue > 0)
+  ?
+  testValue.toString() :
+  testValue;
 
   return userId;
 }
