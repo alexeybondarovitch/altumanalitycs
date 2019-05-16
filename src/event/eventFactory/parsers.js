@@ -5,7 +5,7 @@ import {
 
 export const parseUserId = testValue => {
   let userId = testValue;
-  if (Number.isSafeInteger(testValue) && tesValue > 0) {
+  if (Number.isSafeInteger(testValue) && testValue > 0) {
     userId = testValue.toString();
   }
 
