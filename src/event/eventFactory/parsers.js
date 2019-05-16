@@ -3,6 +3,15 @@ import {
   isObject,
 } from '@utils/type';
 
+export const parseUserId = testValue => {
+  let userId = testValue;
+  if (Number.isSafeInteger(testValue) && tesValue > 0) {
+    userId = testValue.toString();
+  }
+
+  return userId;
+}
+
 export const parseEventType = event => {
   const eventType = isObject(event) && event.type ||
     isString(event) && event;

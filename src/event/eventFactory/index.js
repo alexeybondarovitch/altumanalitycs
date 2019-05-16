@@ -2,6 +2,7 @@ import { Logger } from '@utils/logger';
 import { ERRORS } from '@errors/const';
 import { ERROR_MESSAGES } from './const';
 import {
+  parseUserId,
   parseCount,
   parseEventType,
   parseTimeStamp,
@@ -11,7 +12,7 @@ import {
 import { describe } from '@utils/validation';
 
 const validationSchema = describe().shape({
-  id: describe().required(ERROR_MESSAGES.USER_ID_REQUIRED),
+  id: describe().string(ERROR_MESSAGES.USER_ID_PARSE_ERROR).required(ERROR_MESSAGES.USER_ID_REQUIRED),
   event: describe().string(ERROR_MESSAGES.EVENT_TYPE_PARSE_ERROR).required(ERROR_MESSAGES.EVENT_TYPE_REQUIRED),
   count: describe().number(ERROR_MESSAGES.COUNT_PARSE_ERROR).rule(x => x > 0, ERROR_MESSAGES.NEGATIVE_COUNT),
   time: describe().timeStamp(ERROR_MESSAGES.TIME_PARSE_ERROR),
@@ -33,7 +34,7 @@ const getErrorMessage = (ex, eventObj) => {
 export class EventFactory {
   static createEvent({ userId, event, groups, count, data, time }) {
     const eventObj = {
-      id: userId,
+      id: parseUserId(userId),
       event: parseEventType(event),
       count: parseCount(count),
       time: parseTimeStamp(time),

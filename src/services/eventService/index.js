@@ -1,8 +1,6 @@
 import { request } from '../api/request';
 import { sendBeacon } from '../api/beacon';
 import { ENDPOINTS } from './endpoints';
-import { ServerError } from '@errors';
-import { ERROR_MESSAGES } from '../api/const';
 
 export class EventAPIService {
   constructor(productId) {
@@ -12,6 +10,7 @@ export class EventAPIService {
   saveEvents = async (events, onUnload = false) => {
     if (!events || !events.length) return;
     const url = ENDPOINTS.SAVE_EVENTS.url;
+    const method = ENDPOINTS.SAVE_EVENTS.method;
     const payload = {
       productId: this._productId,
       events
@@ -20,26 +19,11 @@ export class EventAPIService {
     if (onUnload) {
       sendBeacon(url, payload);
     } else {
-      try {
-        await request({
-          url,
-          method: ENDPOINTS.SAVE_EVENTS.method,
-          payload,
-          isHttps: true
-        });
-      }
-      catch (err) {
-        try {
-          await request({
-            url,
-            method: ENDPOINTS.SAVE_EVENTS.method,
-            payload,
-            isHttps: false
-          });
-        } catch (err) {
-          throw new ServerError(ERROR_MESSAGES.SERVER_ERROR);
-        }
-      }
+      await request({
+        url,
+        method,
+        payload
+      });
     }
   }
 }

@@ -6,9 +6,8 @@ import { ERROR_MESSAGES, HEADERS } from './const';
 
 global.Promise = global.Promise || Promise;
 
-const _fetch = async ({ url, method, payload, headers = HEADERS, mode = 'no-cors', isHttps=true }) => {
-  const _url = isHttps ? 'https://' : 'http://'+ url;
-  return await fetch(_url, {
+const _fetch = async ({ url, method, payload, headers = HEADERS, mode = 'no-cors' }) => {
+  return await fetch(url, {
     method,
     mode,
     headers,
@@ -27,12 +26,11 @@ const _fetch = async ({ url, method, payload, headers = HEADERS, mode = 'no-cors
   });
 }
 
-export const request = async ({ url, method, payload, headers, isHttps }) => {
+export const request = async ({ url, method, payload, headers }) => {
   await _fetch({
     url,
     method,
     headers,
-    payload,
-    isHttps
+    payload
   });
 }
