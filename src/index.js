@@ -4,31 +4,37 @@ import { InitializationError } from '@errors';
 class AltumAnalytics {
   constructor() {
     this._initialized = false;
-    this._eventManager = null;
+    this.eventManager = null;
+    this.productId = null;
   }
 
   init = (config) => {
-    //lib is already initialized
-    if (this._initialized) {
-      throw new InitializationError('Altum is already initialized.');
+    this._initialized = true;
+    const { productId, userId, options = {} } = config || {};
+
+    // if Altum was already in use, flush the buffer
+    if (this.eventManager) {
+      this.eventManager.flush();
     }
 
-    this._initialized = true;
-    const { productId, userId, options={} } = config || {};
+    // override productId if new was provided or use previous one
+    this.productId = productId || this.productId;
 
-    if (!productId) {
+    if (!this.productId) {
       throw new InitializationError('ProductId must be provided.');
     }
-    this._eventManager = new EventManager(productId, userId, options);
+
+    this.eventManager = new EventManager(this.productId, userId, options);
+
     return this;
   }
 
   log = (event, count = 1, options = {}) => {
-    if (!this._eventManager) {
+    if (!this.eventManager) {
       throw new InitializationError('Altum is not initialized.');
     }
 
-    this._eventManager.add({
+    this.eventManager.add({
       event,
       count,
       ...options
@@ -36,11 +42,11 @@ class AltumAnalytics {
   }
 
   flush = () => {
-    if (!this._eventManager) {
+    if (!this.eventManager) {
       throw new InitializationError('Altum is not initialized.');
     }
 
-    this._eventManager.flush();
+    this.eventManager.flush();
   }
 }
 

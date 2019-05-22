@@ -95,7 +95,7 @@ After installation two global variables will be extractred:
 
 Altum is exported as the Singleton, so you don't need to create a new instance.
 
-Call ```Altum.init``` on the start of your application.
+Call ```Altum.init``` to initialize library.
 
 ```javascript
   Altum.init(configurationObject);
@@ -106,8 +106,9 @@ Call ```Altum.init``` on the start of your application.
 | Property Name | Type  |  Required | Description
 |-------------------|-----------------|--------------|--------------|
 | productId  | String | Required | Your unique product Id. Exception will be thrown if not provided.|
-| userId  | String | Optional | Current signed in userId. User Id is optional parameter during initialization, <b>BUT if you don't provide it during initialization, you will have to add it in each Altum.log method call (see notice below).</b>|
+| userId  | String | Optional | Current signed in userId. (Usually Db Key). User Id is optional parameter during initialization, <b>BUT if you don't provide it during initialization, you will have to add it in each Altum.log method call (see notice below).</b>|
 | options  | Object | Optional | Optional object with additional settings (see notice below).|
+
 
 <b>options</b> is the optional object with next properties:
 
@@ -115,15 +116,26 @@ Call ```Altum.init``` on the start of your application.
 |-------------------|-----------------|--------------|--------------|
 | bufferSize  | Number | Specify the size of buffer to store events before sending them to server. | 20 |
 
+<b>Note:</b> If userId is provided on initialization it will be used as context for all API calls.
+BUT it can be overriden later by calling ```Altum.init``` method second time.
+Also you can specify userId in the context of specific method. (see Altum.log method definition).
+
+<b>Note:</b> ```Altum.init``` method can be called several times to change current product or current user.
+
+<b>Note:</b> ProductId must be provided at least one time in ```Altum.init``` calls. If not specified in subsequent called, then previously set value will be used.
+
+
 ### Examples:
 
-Initialize library on application start, without specifing the user:
-
+Initialize library on application start and then later initialize current user
 ```javascript
 Altum.init({productId: 'test'});
+
+//later after user sign in
+Altum.init({ userId: '12345'});
 ```
 
-Init library after user sign in:
+Init library after user sign in and specify the product:
 
 ```javascript
 Altum.init({productId: 'test', userId: '12345'});

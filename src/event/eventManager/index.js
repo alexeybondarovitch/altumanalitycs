@@ -15,10 +15,10 @@ export class EventManager {
     this._productId = productId;
     this._userId = userId;
     this._eventService = new EventAPIService(productId);
-    this.handleWindowUnload();
+    this._handleWindowUnload();
   }
 
-  handleWindowUnload = () => {
+  _handleWindowUnload = () => {
     const { addEventListener } = global;
     addEventListener && addEventListener('beforeunload',
       () => {
