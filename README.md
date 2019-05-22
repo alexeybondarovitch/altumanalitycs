@@ -58,8 +58,7 @@ in the ```<head> ``` tag using script below.
 
 ```html
 <script type="text/javascript">
-  var altum=window.Altum=window.Altum||{};if(!(altum._initialized||altum.started)){altum.started=true;altum.log=function(){(altum.delayed=altum.delayed||[]).push([arguments,(new Date).getTime()])};
-  altum.flush=function(){};
+  var altum=window.Altum=window.Altum||{};if(!(altum._initialized||altum.started)){altum.started=true;altum.log=function(){(altum.delayed=altum.delayed||[]).push([arguments,(new Date).getTime()])};altum.flush=function(){};
   altum.config={productId:"YOUR PRODUCT ID",userId:"USER ID"/*, options:{}*/}}
 </script>
 <script async src='node_modules/altumanalytics/lib/altumanalytics.min.js'></script>
@@ -110,14 +109,14 @@ options : {
 }
 ```
 
-<b>bufferSize</b> is optional parameter to specify the size of bufer to store events
+<b>bufferSize</b> is optional parameter to specify the size of buffer to store events
 before sending them to server. Default value: 20.
 
 ## Usage
 
 Altum provide only one API method which should be used in your application:
 
-<b>Log</b> method definition:
+### <b>Log</b> method definition:
 
 ```javascript
 Altum.log(event, count, options);
@@ -188,7 +187,7 @@ Altum.log('Payment', 100.34, { data: { objectId: 'egwg1251f' }, userId: '123456'
 To decrease network load, AltumAnalytics use buffer to send events in batch.
 If you want to force sending events which are currently in buffer Altum specify additional method for it.
 
-<b>Flush</b> method definition:
+### <b>Flush</b> method definition:
 
 ```javascript
 Altum.flush();
