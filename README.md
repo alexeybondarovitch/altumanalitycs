@@ -113,8 +113,7 @@ options : {
 
 | Field Name | Type  |  Description | DefaultValue
 |-------------------|-----------------|--------------|--------------|
-| bufferSize  | Number | Specify the size of buffer to store events
-before sending them to server. | 20 |
+| bufferSize  | Number | Specify the size of buffer to store events before sending them to server. | 20 |
 
 
 <b>bufferSize</b> is optional parameter to specify the size of buffer to store events
