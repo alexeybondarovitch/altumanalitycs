@@ -106,7 +106,7 @@ Call ```Altum.init``` to initialize library.
 | Property Name | Type  |  Required | Description
 |-------------------|-----------------|--------------|--------------|
 | productId  | String | Required | Your unique product Id. Exception will be thrown if not provided.|
-| userId  | String | Optional | Current signed in userId. (Usually Db Key). User Id is optional parameter during initialization, <b>BUT if you don't provide it during initialization, you will have to add it in each Altum.log method call (see notice below).</b>|
+| userId  | String | Optional | Current signed in userId. (Usually Db Key). User Id is optional parameter during initialization, <b>BUT if you don't provide it during initialization, you will have to provide it later</b>|
 | options  | Object | Optional | Optional object with additional settings (see notice below).|
 
 
@@ -122,7 +122,7 @@ Also you can specify userId in the context of specific method. (see Altum.log me
 
 <b>Note:</b> ```Altum.init``` method can be called several times to change current product or current user.
 
-<b>Note:</b> ProductId must be provided at least one time in ```Altum.init``` calls. If not specified in subsequent called, then previously set value will be used.
+<b>Note:</b> ProductId must be provided at least one time in ```Altum.init``` calls. If not specified in subsequent calls, then previous value will be used.
 
 
 ### Examples:
