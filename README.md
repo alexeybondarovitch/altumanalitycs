@@ -58,7 +58,7 @@ in the ```<head> ``` tag using script below.
 
 ```html
 <script type="text/javascript">
-  var altum=window.Altum=window.Altum||{};if(!(altum._initialized||altum.started)){altum.started=true;altum.log=function(){(altum.delayed=altum.delayed||[]).push([arguments,(new Date).getTime()])};altum.flush=function(){};
+  var altum=window.Altum=window.Altum||{};if(!(altum._initialized||altum.started)){altum.started=true;altum.log=function(){(altum.delayed=altum.delayed||[]).push([arguments,(new Date).getTime()])};
   altum.config={productId:"YOUR PRODUCT ID",userId:"USER ID"/*, options:{}*/}}
 </script>
 <script async src='node_modules/altumanalytics/lib/altumanalytics.min.js'></script>
@@ -189,7 +189,7 @@ Altum.log('Payment', 100.34, { data: { objectId: 'egwg1251f' }, userId: '123456'
 ### <b>Flush</b> method definition:
 
 To decrease network load, AltumAnalytics use buffer to send events in batch.
-If you want to force sending events which are currently in buffer Altum specify additional method for it.
+If you want to force sending events which are currently in buffer Altum specify additional API method for it.
 
 ```javascript
 Altum.flush();
