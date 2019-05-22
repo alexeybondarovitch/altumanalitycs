@@ -183,11 +183,10 @@ Log user payment event:
 Altum.log('Payment', 100.34, { data: { objectId: 'egwg1251f' }, userId: '123456', groups: ['Payments'] })
 ```
 
+### <b>Flush</b> method definition:
 
 To decrease network load, AltumAnalytics use buffer to send events in batch.
 If you want to force sending events which are currently in buffer Altum specify additional method for it.
-
-### <b>Flush</b> method definition:
 
 ```javascript
 Altum.flush();
