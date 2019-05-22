@@ -93,27 +93,50 @@ After installation two global variables will be extractred:
 
 ### Initialization
 
+### <b>Init</b> method definition:
+
 Altum is exported as the Singleton, so you don't need to create a new instance.
 
-To use it you should provide your <b>Product Id</b> and <b>User Id</b>
-
-<b>Product Id</b> is required parameter, exception will be thrown if it is not provided.
-
-<b>User Id</b> is optional parameter during initialization, BUT if you don't provide it during initialization, you will have to add it in each Altum.log method call (see notice below).
-
-Optionally you can also provide <b>options</b> object:
+Call ```Altum.init``` on the start of your application.
 
 ```javascript
-options : {
-  bufferSize: 20
-}
+Altum.init(configurationObject);
 ```
+
+Configuration Object contains next field:
+
+| Field Name | Type  |  Required | Description
+|-------------------|-----------------|--------------|--------------|
+| productId  | String | Required | Your unique product Id. Exception will be thrown if not provided.|
+| userId  | String | Optional | Current signed in userId. User Id is optional parameter during initialization, BUT if you don't provide it during initialization, you will have to add it in each Altum.log method call (see notice below).|
+| options  | Object | Optional | Optional object with additional settings (see notice below).|
+
 
 <b>Options</b> object may contain next properties:
 
 | Field Name | Type  |  Description | Default Value
 |-------------------|-----------------|--------------|--------------|
 | bufferSize  | Number | Specify the size of buffer to store events before sending them to server. | 20 |
+
+### Examples:
+
+Initialize library on application start, without specifing the user:
+
+```javascript
+Altum.init({productId: 'test'});
+```
+
+Init library after user sign in:
+
+```javascript
+Altum.init({productId: 'test', userId: '12345'});
+```
+
+Init library with custom buffer size:
+
+```javascript
+Altum.init({productId: 'test', userId: '12345', options: {bufferSize: 5}});
+```
 
 ## Usage
 
