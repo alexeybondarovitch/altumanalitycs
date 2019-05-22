@@ -1,20 +1,24 @@
-export const isString = value => {
-  return typeof value === 'string' || value instanceof String;
-}
+export const isString = value =>
+                                typeof value === 'string' ||
+                                value instanceof String;
 
-export const isObject = value => {
-  return typeof value === 'object' && value !== null;
-}
+export const isObject = value =>
+                                typeof value === 'object' &&
+                                value !== null;
 
-export const isEmpty = value => {
-  return value == null || value === '' || typeof value === 'undefined';
-}
+export const isEmpty = value =>
+                                value == null ||
+                                value === '' ||
+                                typeof value === 'undefined';
 
 export const isNumber = value => !isNaN(value);
 
-export const isTimeStamp = value => {
-  return (new Date(value)).getTime() > 0;
-}
+export const isSafePositiveInteger = value =>
+                                        isNumber(value) &&
+                                        Number.isSafeInteger(value) &&
+                                        value > 0;
+
+export const isTimeStamp = value => (new Date(value)).getTime() > 0;
 
 export const isJson = value => {
   if (!isObject(value)){

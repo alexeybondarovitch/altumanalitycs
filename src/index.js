@@ -14,12 +14,12 @@ class AltumAnalytics {
     }
 
     this._initialized = true;
-    const { productId, userId } = config || {};
+    const { productId, userId, options={} } = config || {};
 
     if (!productId) {
       throw new InitializationError('ProductId must be provided.');
     }
-    this._eventManager = new EventManager(productId, userId);
+    this._eventManager = new EventManager(productId, userId, options);
     return this;
   }
 
@@ -33,6 +33,14 @@ class AltumAnalytics {
       count,
       ...options
     });
+  }
+
+  flush = () => {
+    if (!this._eventManager) {
+      throw new InitializationError('Altum is not initialized.');
+    }
+
+    this._eventManager.flush();
   }
 }
 

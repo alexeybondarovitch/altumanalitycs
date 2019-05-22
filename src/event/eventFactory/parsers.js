@@ -1,10 +1,11 @@
 import {
   isString,
   isObject,
+  isSafePositiveInteger
 } from '@utils/type';
 
 export const parseUserId = testValue => {
-  let userId = (Number.isSafeInteger(testValue) && testValue > 0)
+  let userId = isSafePositiveInteger(testValue)
   ?
   testValue.toString() :
   testValue;
@@ -24,7 +25,7 @@ export const parseTimeStamp = testValue => {
 
   if (isString(timeStamp)) {
     timeStamp = Date.parse(testValue);
-  } else if (Number.isSafeInteger(testValue) && testValue > 0) {
+  } else if (isSafePositiveInteger(testValue)) {
     timeStamp = testValue;
   }
   if (isNaN(timeStamp) || !timeStamp) {

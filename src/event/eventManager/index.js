@@ -1,12 +1,17 @@
-import { EventFactory } from '../eventFactory';
 import { EventAPIService } from '@services/eventService';
-
+import { isSafePositiveInteger } from '@utils/type';
+import { InitializationError } from '@errors';
+import { EventFactory } from '../eventFactory';
 import { BUFFER_SIZE } from './const';
 
 export class EventManager {
 
-  constructor(productId, userId) {
+  constructor(productId, userId, { bufferSize=BUFFER_SIZE }) {
     this._buffer = [];
+    if (!isSafePositiveInteger(bufferSize)) {
+      throw new InitializationError('Wrong options were provided during initialization.');
+    }
+    this._bufferSize = bufferSize;
     this._productId = productId;
     this._userId = userId;
     this._eventService = new EventAPIService(productId);
@@ -36,7 +41,7 @@ export class EventManager {
       this._buffer.push(eventObj);
     }
 
-    if (this._buffer.length === BUFFER_SIZE) {
+    if (this._buffer.length === this._bufferSize) {
       this.flush();
     }
   }

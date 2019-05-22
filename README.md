@@ -16,6 +16,12 @@ Install from NPM
 npm install --save altumanalytics
 ```
 
+or if you want to specify version:
+
+```
+npm install --save altumanalytics@version      (i.e. npm install --save altumanalytics@1.2.15)
+```
+
 ### Include the library via script or manually and initialize it
 
 The library is exported as a Universal Module (UMD), so there are couple ways of using it.
@@ -25,7 +31,7 @@ Ideally you would use module loader or compilation step to import using ES6 modu
 ```javascript
 import { Altum } from 'altumanalytics';
 
-Altum.init({productId: 'PRODUCT ID', userId: 'USER ID'});
+Altum.init({productId: 'PRODUCT ID', userId: 'USER ID'/*, options:{}*/});
 ```
 
 If you have Node.js environment or you prefer CommonJS modules then the library can be included as
@@ -33,7 +39,7 @@ If you have Node.js environment or you prefer CommonJS modules then the library 
 ```javascript
 const Altum = require('altumanalytics').Altum;
 
-Altum.init({productId: 'PRODUCT ID', userId: 'USER ID'});
+Altum.init({productId: 'PRODUCT ID', userId: 'USER ID'/*, options:{}*/});
 ```
 
 or even using AMD script loading
@@ -42,7 +48,7 @@ or even using AMD script loading
 define(['altumanalytics'] , function (module) {
   const Altum = module.Altum;
 
-  Altum.init({productId: 'PRODUCT ID', userId: 'USER ID'});
+  Altum.init({productId: 'PRODUCT ID', userId: 'USER ID'/*, options:{}*/});
   // do whatever you want
 });
 ```
@@ -53,21 +59,35 @@ in the ```<head> ``` tag using script below.
 ```html
 <script type="text/javascript">
   var altum=window.Altum=window.Altum||{};if(!(altum._initialized||altum.started)){altum.started=true;altum.log=function(){(altum.delayed=altum.delayed||[]).push([arguments,(new Date).getTime()])};
-  altum.config={productId:"YOUR PRODUCT ID",userId:"USER ID"}}
+  altum.flush=function(){};
+  altum.config={productId:"YOUR PRODUCT ID",userId:"USER ID"/*, options:{}*/}}
 </script>
 <script async src='node_modules/altumanalytics/lib/altumanalytics.min.js'></script>
 ```
 
 Instead of using npm you can also get library script from public CDNs:
+https://unpkg.com/
+or
+https://cdn.jsdelivr.net/
+
+// Load the latest version of the library
 ```html
 <script async src='https://unpkg.com/altumanalytics@latest/lib/altumanalytics.min.js'></script>
-```
-
-or
-
-```html
 <script async src='https://cdn.jsdelivr.net/npm/altumanalytics@latest/lib/altumanalytics.min.js'></script>
 ```
+
+// Load the AltumAnalytics v1.2.15
+```html
+<script async src='https://unpkg.com/altumanalytics@1.2.15/lib/altumanalytics.min.js'></script>
+<script async src='https://cdn.jsdelivr.net/npm/altumanalytics@1.2.15/lib/altumanalytics.min.js'></script>
+```
+
+// Use a version range instead of specific version
+```html
+<script async src='https://unpkg.com/altumanalytics@1.2/lib/altumanalytics.min.js'></script>
+<script async src='https://cdn.jsdelivr.net/npm/altumanalytics@1.2/lib/altumanalytics.min.js'></script>
+```
+
 
 After installation two global variables will be extractred:
 <b>Altum</b> - instance of the library and <b>AltumAnalytics</b> - module definition.
@@ -81,6 +101,17 @@ To use it you should provide your <b>Product Id</b> and <b>User Id</b>
 <b>Product Id</b> is required parameter, exception will be thrown if it is not provided.
 
 <b>User Id</b> is optional parameter during initialization, BUT if you don't provide it during initialization, you will have to add it in each Altum.log method call (see notice below).
+
+Optionally you can also provide <b>options</b> object:
+
+```javascript
+options : {
+  bufferSize: 20
+}
+```
+
+<b>bufferSize</b> is optional parameter to specify the size of bufer to store events
+before sending them to server. Default value: 20.
 
 ## Usage
 
@@ -152,3 +183,16 @@ Log user payment event:
 ```javascript
 Altum.log('Payment', 100.34, { data: { objectId: 'egwg1251f' }, userId: '123456', groups: ['Payments'] })
 ```
+
+
+To decrease network load, AltumAnalytics use buffer to send events in batch.
+If you want to force sending events which are currently in buffer Altum specify additional method for it.
+
+<b>Flush</b> method definition:
+
+```javascript
+Altum.flush();
+```
+
+This method should be avoided in usual use cases for your application.
+But in some cases (such as application stop), it can be used to avoid data loss.
