@@ -103,15 +103,15 @@ Call ```Altum.init``` on the start of your application.
 
 <b>configurationObject</b> contains next properties:
 
-| Field Name | Type  |  Required | Description
+| Property Name | Type  |  Required | Description
 |-------------------|-----------------|--------------|--------------|
 | productId  | String | Required | Your unique product Id. Exception will be thrown if not provided.|
 | userId  | String | Optional | Current signed in userId. User Id is optional parameter during initialization, <b>BUT if you don't provide it during initialization, you will have to add it in each Altum.log method call (see notice below).</b>|
 | options  | Object | Optional | Optional object with additional settings (see notice below).|
 
-<b>options</b> is the optional object with next fields:
+<b>options</b> is the optional object with next properties:
 
-| Field Name | Type  |  Description | Default Value
+| Property Name | Type  |  Description | Default Value
 |-------------------|-----------------|--------------|--------------|
 | bufferSize  | Number | Specify the size of buffer to store events before sending them to server. | 20 |
 
@@ -147,10 +147,10 @@ Altum.log(event, count, options);
 
 The ```Altum.log``` method is how you send any event with it's data to our processing center.
 
-The ```log``` call has the folowing fields:
+The ```log``` call has the folowing parameters:
 
 
-| Field Name | Required | Type  |  Description |
+| Parameter Name | Required | Type  |  Description |
 |-------------------|-----------------|--------------|---------------------|
 | event  |  Required |  String or Object | Event Type which will be used to identificate tracked event. If object provided, it should include property <b>type</b> in it.|
 | count  |  Required |  Float Number | Positive Number which will be associated with tracked event.<i>Note: If you do not pass a count, pass 1 as default.</i>|
@@ -159,7 +159,7 @@ The ```log``` call has the folowing fields:
 
 <b>Options</b> object may contain next properties:
 
-| Field Name | Type  |  Description |
+| Property Name | Type  |  Description |
 |-------------------|-----------------|--------------|
 | data  | Object | Any data associated with tracked event. |
 | time  |  TimeStamp | js representation of time (example ```(new Date).getTime()```). If not provided, current UTC time will be used|
