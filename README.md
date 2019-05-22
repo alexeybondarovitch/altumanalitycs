@@ -93,26 +93,23 @@ After installation two global variables will be extractred:
 
 ### Initialization
 
-### <b>Init</b> method definition:
-
 Altum is exported as the Singleton, so you don't need to create a new instance.
 
 Call ```Altum.init``` on the start of your application.
 
 ```javascript
-Altum.init(configurationObject);
+  Altum.init(configurationObject);
 ```
 
-Configuration Object contains next field:
+<b>configurationObject</b> contains next properties:
 
 | Field Name | Type  |  Required | Description
 |-------------------|-----------------|--------------|--------------|
 | productId  | String | Required | Your unique product Id. Exception will be thrown if not provided.|
-| userId  | String | Optional | Current signed in userId. User Id is optional parameter during initialization, BUT if you don't provide it during initialization, you will have to add it in each Altum.log method call (see notice below).|
+| userId  | String | Optional | Current signed in userId. User Id is optional parameter during initialization, <b>BUT if you don't provide it during initialization, you will have to add it in each Altum.log method call (see notice below).</b>|
 | options  | Object | Optional | Optional object with additional settings (see notice below).|
 
-
-<b>Options</b> object may contain next properties:
+<b>options</b> is the optional object with next fields:
 
 | Field Name | Type  |  Description | Default Value
 |-------------------|-----------------|--------------|--------------|
