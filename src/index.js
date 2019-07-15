@@ -51,7 +51,7 @@ class AltumAnalytics {
 }
 
 const _initFromWindow = () => {
-  const _altum = global.Altum;
+  const _altum = window.Altum;
 
   if (!_altum) {
     return;
@@ -62,7 +62,7 @@ const _initFromWindow = () => {
     return _altum;
   }
 
-  const { config, delayed = [] } = _altum;
+  const { config, d = [] /*delayed events*/ } = _altum;
   const instance = new AltumAnalytics();
 
   instance.init(config);
@@ -78,7 +78,7 @@ const _initFromWindow = () => {
     instance
   );
 
-  delayed.forEach(([args, timeStamp]) => {
+  d.forEach(([args, timeStamp]) => {
     const [event, count, options = {}] = [...args];
     options.time = options.time || timeStamp;
     _altum.log(event, count, options);
@@ -87,6 +87,6 @@ const _initFromWindow = () => {
   return _altum;
 }
 
-const instance = global.Altum = _initFromWindow() || new AltumAnalytics();
+const instance = window.Altum = _initFromWindow() || new AltumAnalytics();
 
 export const Altum = instance;

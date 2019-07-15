@@ -57,11 +57,20 @@ And if you don't have any js environment setup, you can just include the library
 in the ```<head> ``` tag using script below.
 
 ```html
-<script type="text/javascript">
-  var altum=window.Altum=window.Altum||{};if(!(altum._initialized||altum.started)){altum.started=true;altum.log=function(){(altum.delayed=altum.delayed||[]).push([arguments,(new Date).getTime()])};
-  altum.config={productId:"YOUR PRODUCT ID",userId:"USER ID"/*, options:{}*/}}
-</script>
-<script async src='node_modules/altumanalytics/lib/altumanalytics.min.js'></script>
+    <script type="text/javascript">
+      (function(t,e,o,u,a,m,n,r){t[a]=t[a]||{
+          config: {
+            productId:"test",
+            userId:"123456",
+            options:{ bufferSize:5 },
+          }
+        };
+        t[a]['log']=t[a]['log']||function(){(t[a].d=t[a].d||[]).push([arguments,1*new Date])};
+        t.addEventListener('load',function(){
+          r=!1,m=e.createElement(o);m.type="text/javascript";m.async=!0;m.src=u;
+          n=e.getElementsByTagName(o)[0];n.parentNode.insertBefore(m,n)});
+      })(window,document,'script','./altumanalytics.min.js','Altum');
+    </script>
 ```
 
 Instead of using npm you can also get library script from public CDNs:
