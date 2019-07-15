@@ -8,13 +8,13 @@ class AltumAnalytics {
     this.productId = null;
   }
 
-  init = (config) => {
+  init (config) {
     this._initialized = true;
     const { productId, userId, options = {} } = config || {};
 
     // if Altum was already in use, flush the buffer
     if (this.eventManager) {
-      this.eventManager.flush();
+      this.eventManager.dispose();
     }
 
     // override productId if new was provided or use previous one
@@ -29,7 +29,7 @@ class AltumAnalytics {
     return this;
   }
 
-  log = (event, count = 1, options = {}) => {
+  log(event, count = 1, options = {}) {
     if (!this.eventManager) {
       throw new InitializationError('Altum is not initialized.');
     }
@@ -41,7 +41,7 @@ class AltumAnalytics {
     });
   }
 
-  flush = () => {
+  flush() {
     if (!this.eventManager) {
       throw new InitializationError('Altum is not initialized.');
     }
