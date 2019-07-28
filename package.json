@@ -2,8 +2,8 @@
   "name": "altumanalytics",
   "version": "1.2.16",
   "description": "event tracking",
-  "repository": "github:BondarovitchAA/altumanalitycs",
-  "homepage": "https://github.com/BondarovitchAA/altumanalitycs",
+  "repository": "github:alexeybondarovitch/altumanalitycs",
+  "homepage": "https://github.com/alexeybondarovitch/altumanalitycs",
   "main": "lib/altumanalytics.min.js",
   "browser": "lib/altumanalytics.min.js",
   "scripts": {
