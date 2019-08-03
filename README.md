@@ -19,7 +19,7 @@ npm install --save altumanalytics
 or if you want to specify version:
 
 ```
-npm install --save altumanalytics@version      (i.e. npm install --save altumanalytics@1.2.15)
+npm install --save altumanalytics@version      (i.e. npm install --save altumanalytics@2.0.0)
 ```
 
 ### Include the library via script or manually and initialize it
@@ -57,44 +57,26 @@ And if you don't have any js environment setup, you can just include the library
 in the ```<head> ``` tag using script below.
 
 ```html
-    <script type="text/javascript">
-      (function(t,e,o,u,a,m,n,r){t[a]=t[a]||{
-          config: {
-            productId:"test",
-            userId:"123456",
-            options:{ bufferSize:5 },
-          }
-        };
-        t[a]['log']=t[a]['log']||function(){(t[a].d=t[a].d||[]).push([arguments,1*new Date])};
-        t.addEventListener('load',function(){
-          r=!1,m=e.createElement(o);m.type="text/javascript";m.async=!0;m.src=u;
-          n=e.getElementsByTagName(o)[0];n.parentNode.insertBefore(m,n)});
-      })(window,document,'script','./altumanalytics.min.js','Altum');
-    </script>
+<script type="text/javascript">
+      (function(t,e,r,o,u,a,m,n){t[a]=t[a]||{s:!1};
+      t[a].s||(t[a].s=!0,t[a]['init']=function(c){t[a].c=c},r('load',function(){
+        m=e.createElement(o);m.type="text/javascript";m.async=!0;m.src=u;
+        n=e.getElementsByTagName(o)[0];n.parentNode.insertBefore(m,n)},!1));
+      })(window,document,addEventListener,'script','https://cdn.jsdelivr.net/npm/altumanalytics@latest/lib/altumanalytics.min.js','Altum');
+
+      Altum.init({
+        productId:"test",
+        userId:"123456",
+        options:{ bufferSize: 5 }
+      });
+</script>
+
 ```
 
 Instead of using npm you can also get library script from public CDNs:
-https://unpkg.com/
+https://unpkg.com/, (i.e. https://unpkg.com/altumanalytics@latest/lib/altumanalytics.min.js)
 or
-https://cdn.jsdelivr.net/
-
-// Load the latest version of the library
-```html
-<script async src='https://unpkg.com/altumanalytics@latest/lib/altumanalytics.min.js'></script>
-<script async src='https://cdn.jsdelivr.net/npm/altumanalytics@latest/lib/altumanalytics.min.js'></script>
-```
-
-// Load the AltumAnalytics v1.2.15
-```html
-<script async src='https://unpkg.com/altumanalytics@1.2.15/lib/altumanalytics.min.js'></script>
-<script async src='https://cdn.jsdelivr.net/npm/altumanalytics@1.2.15/lib/altumanalytics.min.js'></script>
-```
-
-// Use a version range instead of specific version
-```html
-<script async src='https://unpkg.com/altumanalytics@1.2/lib/altumanalytics.min.js'></script>
-<script async src='https://cdn.jsdelivr.net/npm/altumanalytics@1.2/lib/altumanalytics.min.js'></script>
-```
+https://cdn.jsdelivr.net/ (i.e. https://cdn.jsdelivr.net/npm/altumanalytics@latest/lib/altumanalytics.min.js)
 
 
 After installation two global variables will be extractred:
@@ -115,7 +97,7 @@ Call ```Altum.init``` to initialize library.
 | Property Name | Type  |  Required | Description
 |-------------------|-----------------|--------------|--------------|
 | productId  | String | Required | Your unique product Id. Exception will be thrown if not provided.|
-| userId  | String | Optional | Current signed in userId. (Usually Db Key). User Id is optional parameter during initialization, <b>BUT if you don't provide it during initialization, you will have to provide it later</b>|
+| userId  | String | Required | Current signed in userId. (Usually Db Key).|
 | options  | Object | Optional | Optional object with additional settings (see notice below).|
 
 
@@ -127,22 +109,12 @@ Call ```Altum.init``` to initialize library.
 
 <b>Note:</b> If userId is provided on initialization it will be used as context for all API calls.
 BUT it can be overriden later by calling ```Altum.init``` method second time.
-Also you can specify userId in the context of specific method. (see Altum.log method definition).
 
 <b>Note:</b> ```Altum.init``` method can be called several times to change current product or current user.
 
 <b>Note:</b> ProductId must be provided at least one time in ```Altum.init``` calls. If not specified in subsequent calls, then previous value will be used.
 
-
 ### Examples:
-
-Initialize library on application start and then later initialize current user
-```javascript
-Altum.init({productId: 'test'});
-
-//later after user sign in
-Altum.init({ userId: '12345'});
-```
 
 Init library after user sign in and specify the product:
 
@@ -155,86 +127,3 @@ Init library with custom buffer size:
 ```javascript
 Altum.init({productId: 'test', userId: '12345', options: {bufferSize: 5}});
 ```
-
-## Usage
-
-Altum provide only one API method which should be used in your application:
-
-### <b>Log</b> method definition:
-
-```javascript
-Altum.log(event, count, options);
-```
-
-The ```Altum.log``` method is how you send any event with it's data to our processing center.
-
-The ```log``` call has the folowing parameters:
-
-
-| Parameter Name | Required | Type  |  Description |
-|-------------------|-----------------|--------------|---------------------|
-| event  |  Required |  String or Object | Event Type which will be used to identificate tracked event. If object provided, it should include property <b>type</b> in it.|
-| count  |  Required |  Float Number | Positive Number which will be associated with tracked event.<i>Note: If you do not pass a count, pass 1 as default.</i>|
-|options | Optional | Object | A dictionary of options (see details below). |
-
-
-<b>Options</b> object may contain next properties:
-
-| Property Name | Type  |  Description |
-|-------------------|-----------------|--------------|
-| data  | Object | Any data associated with tracked event. |
-| time  |  TimeStamp | js representation of time (example ```(new Date).getTime()```). If not provided, current UTC time will be used|
-|userId |  String | User Identifier which will be associated with tracked event. (Usually Db Key). |
-|groups |  Array | Array of groups to categorize event for future using |
-
-### Examples
-
-Log any custom event:
-
-```javascript
-Altum.log('My Amazing Event', 1)
-```
-
-Log javascript click event:
-
-```javascript
-const eventObj = { type: 'click' };  //here will be js event object
-Altum.log(eventObj, 1);
-```
-
-Log event with custom data object:
-
-```javascript
-Altum.log(eventObj, 1, { data: { customProperty: 'customValue' }});
-```
-
-Log event with several groups:
-
-```javascript
-Altum.log('Grouped event', 1, { groups: ['First', 'Second']});
-```
-
-Log historical event:
-
-```javascript
-const historicalTime = (new Date('01-03-2015')).getTime();
-Altum.log('Grouped event', 1, { time: historicalTime });
-```
-
-Log user payment event:
-
-```javascript
-Altum.log('Payment', 100.34, { data: { objectId: 'egwg1251f' }, userId: '123456', groups: ['Payments'] })
-```
-
-### <b>Flush</b> method definition:
-
-To decrease network load, AltumAnalytics use buffer to send events in batch.
-If you want to force sending events which are currently in buffer Altum specify additional API method for it.
-
-```javascript
-Altum.flush();
-```
-
-This method should be avoided in usual use cases for your application.
-But in some cases (such as application stop), it can be used to avoid data loss.
