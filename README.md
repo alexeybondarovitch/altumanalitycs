@@ -19,7 +19,7 @@ npm install --save altumanalytics
 or if you want to specify version:
 
 ```
-npm install --save altumanalytics@version      (i.e. npm install --save altumanalytics@2.0.0)
+npm install --save altumanalytics@version      (i.e. npm install --save altumanalytics@2.0.1)
 ```
 
 ### Include the library via script or manually and initialize it
