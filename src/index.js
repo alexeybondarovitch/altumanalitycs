@@ -1,6 +1,9 @@
 import { InitializationError } from "@errors";
+import { ERROR_MESSAGES } from "@errors/const";
+import { Logger } from "@utils/logger";
 import { EventManager } from "./event/eventManager";
 import { DEFAULT_EVENTS } from "./event/const";
+import { initHost } from "./services/api/host";
 
 let _config = {
   userId: null,
@@ -28,10 +31,18 @@ class AltumAnalytics {
       throw new InitializationError("ProductId and UserId must be provided.");
     }
 
-    _eventManager = new EventManager(productId, userId, options || {});
-
-    _eventManager.add({ event: DEFAULT_EVENTS.SESSION_START });
-    return this;
+    try {
+      initHost(productId, () => {
+        _eventManager = new EventManager(productId, userId, options || {});
+        _eventManager.add({
+          event: DEFAULT_EVENTS.SESSION_START,
+          count: 1,
+          groups: ["session"]
+        });
+      });
+    } catch (err) {
+      Logger.error(ERROR_MESSAGES.INITIALIZATION_ERROR);
+    }
   }
 }
 
@@ -49,12 +60,14 @@ const _initFromWindow = () => {
 
   const { c = {} /*config*/ } = altum;
 
-  Object.keys(altum).forEach(function(key) { delete altum[key]; });
-  Object.setPrototypeOf(altum, Object.getPrototypeOf(new AltumAnalytics));
+  Object.keys(altum).forEach(function(key) {
+    delete altum[key];
+  });
+  Object.setPrototypeOf(altum, Object.getPrototypeOf(new AltumAnalytics()));
   altum.init(c);
   return altum;
 };
 
-const instance = (window.Altum = _initFromWindow() || new AltumAnalytics);
+const instance = (window.Altum = _initFromWindow() || new AltumAnalytics());
 
 export const Altum = instance;

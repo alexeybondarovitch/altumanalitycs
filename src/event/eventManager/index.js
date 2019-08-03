@@ -18,6 +18,7 @@ export class EventManager {
     this._bufferSize = bufferSize;
     this._productId = productId;
     this._userId = userId;
+    this.unload = false;
     this._initEvents();
   }
 
@@ -35,7 +36,7 @@ export class EventManager {
       this._buffer.push(eventObj);
     }
 
-    if (this._buffer.length === this._bufferSize) {
+    if (this._buffer.length === this._bufferSize && !this.unload) {
       this.flush();
     }
   }
@@ -57,12 +58,21 @@ export class EventManager {
   }
 
   _handleWindowUnload = () => {
-    this.add({ event: DEFAULT_EVENTS.SESSION_END, count: 1 });
+    this.unload = true;
+    this.add({
+      event: DEFAULT_EVENTS.SESSION_END,
+      count: 1,
+      groups: ["session"]
+    });
     saveEvents(this._buffer, this._productId, true);
-  }
+  };
 
   _handleElementClick = e => {
     const hashStr = getDomElementString(e.target);
-    this.add({ event: hashCode(hashStr).toString(), count: 1, groups:['click'] });
-  }
+    this.add({
+      event: hashCode(hashStr).toString(),
+      count: 1,
+      groups: ["click"]
+    });
+  };
 }
