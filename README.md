@@ -19,7 +19,7 @@ npm install --save altumanalytics
 or if you want to specify version:
 
 ```
-npm install --save altumanalytics@version      (i.e. npm install --save altumanalytics@2.0.1)
+npm install --save altumanalytics@version      (i.e. npm install --save altumanalytics@2.0.2)
 ```
 
 ### Include the library via script or manually and initialize it
@@ -65,8 +65,8 @@ in the ```<head> ``` tag using script below.
       })(window,document,addEventListener,'script','https://cdn.jsdelivr.net/npm/altumanalytics@latest/lib/altumanalytics.min.js','Altum');
 
       Altum.init({
-        productId:"test",
-        userId:"123456",
+        productId:"PRODUCT ID",
+        userId:"USER ID",
         options:{ bufferSize: 5 }
       });
 </script>
