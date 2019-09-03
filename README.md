@@ -31,15 +31,15 @@ Ideally you would use module loader or compilation step to import using ES6 modu
 ```javascript
 import { Altum } from 'altumanalytics';
 
-Altum.init({productId: 'PRODUCT ID', userId: 'USER ID'/*, options:{}*/});
+Altum.init({productId: 'PRODUCT ID', groupId: 'GROUP_ID', userId: 'USER ID'/*, options:{}*/});
 ```
 
-If you have Node.js environment or you prefer CommonJS modules then the library can be included as
+In CommonJS modules then the library can be used as
 
 ```javascript
 const Altum = require('altumanalytics').Altum;
 
-Altum.init({productId: 'PRODUCT ID', userId: 'USER ID'/*, options:{}*/});
+Altum.init({productId: 'PRODUCT ID', groupId: 'GROUP_ID', userId: 'USER ID'/*, options:{}*/});
 ```
 
 or even using AMD script loading
@@ -48,7 +48,7 @@ or even using AMD script loading
 define(['altumanalytics'] , function (module) {
   const Altum = module.Altum;
 
-  Altum.init({productId: 'PRODUCT ID', userId: 'USER ID'/*, options:{}*/});
+  Altum.init({productId: 'PRODUCT ID', groupId: 'GROUP_ID', userId: 'USER ID'/*, options:{}*/});
   // do whatever you want
 });
 ```
@@ -67,7 +67,8 @@ in the ```<head> ``` tag using script below.
       Altum.init({
         productId:"PRODUCT ID",
         userId:"USER ID",
-        options:{ bufferSize: 5 }
+        groupId: "GROUP_ID",
+        options:{ bufferSize: 20 }
       });
 </script>
 
@@ -97,7 +98,8 @@ Call ```Altum.init``` to initialize library.
 | Property Name | Type  |  Required | Description
 |-------------------|-----------------|--------------|--------------|
 | productId  | String | Required | Your unique product Id. Exception will be thrown if not provided.|
-| userId  | String | Required | Current signed in userId. (Usually Db Key).|
+| groupId  | String | Required | Unique identifier per license.|
+| userId  | String | Required | Currently signed in userId. (Usually Db Key).|
 | options  | Object | Optional | Optional object with additional settings (see notice below).|
 
 
@@ -107,23 +109,19 @@ Call ```Altum.init``` to initialize library.
 |-------------------|-----------------|--------------|--------------|
 | bufferSize  | Number | Specify the size of buffer to store events before sending them to server. | 20 |
 
-<b>Note:</b> If userId is provided on initialization it will be used as context for all API calls.
-BUT it can be overriden later by calling ```Altum.init``` method second time.
 
 <b>Note:</b> ```Altum.init``` method can be called several times to change current product or current user.
-
-<b>Note:</b> ProductId must be provided at least one time in ```Altum.init``` calls. If not specified in subsequent calls, then previous value will be used.
 
 ### Examples:
 
 Init library after user sign in and specify the product:
 
 ```javascript
-Altum.init({productId: 'test', userId: '12345'});
+Altum.init({productId: 'test', groupId: '1234', userId: '12345'});
 ```
 
 Init library with custom buffer size:
 
 ```javascript
-Altum.init({productId: 'test', userId: '12345', options: {bufferSize: 5}});
+Altum.init({productId: 'test', groupId: '1234', userId: '12345', options: {bufferSize: 5}});
 ```

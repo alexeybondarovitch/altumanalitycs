@@ -2,11 +2,11 @@ import { InitializationError } from "@errors";
 import { ERROR_MESSAGES } from "@errors/const";
 import { Logger } from "@utils/logger";
 import { EventManager } from "./event/eventManager";
-import { DEFAULT_EVENTS } from "./event/const";
 import { initHost } from "./services/api/host";
 
 let _config = {
   userId: null,
+  groupId: null,
   productId: null,
   options: {}
 };
@@ -25,20 +25,31 @@ class AltumAnalytics {
     // override previous settings
     _config = { ..._config, ...config };
 
-    const { productId, userId, options } = config;
+    const { productId, userId, groupId, options } = config;
 
-    if (!productId || !userId) {
-      throw new InitializationError("ProductId and UserId must be provided.");
+    let errArg = null;
+    if (!productId) {
+      errArg = "ProductId";
+    }
+    if (!userId) {
+      errArg = "UserId";
+    }
+    if (!groupId) {
+      errArg = "GroupId";
+    }
+
+    if (errArg) {
+      throw new InitializationError(`${errArg} must be provided.`);
     }
 
     try {
       initHost(productId, () => {
-        _eventManager = new EventManager(productId, userId, options || {});
-        _eventManager.add({
-          event: DEFAULT_EVENTS.SESSION_START,
-          count: 1,
-          groups: ["session"]
-        });
+        _eventManager = new EventManager(
+          productId,
+          groupId,
+          userId,
+          options || {}
+        );
       });
     } catch (err) {
       Logger.error(ERROR_MESSAGES.INITIALIZATION_ERROR);

@@ -8,7 +8,7 @@ import { DEFAULT_EVENTS } from "../const";
 import { BUFFER_SIZE } from "./const";
 
 export class EventManager {
-  constructor(productId, userId, { bufferSize = BUFFER_SIZE }) {
+  constructor(productId, groupId, userId, { bufferSize = BUFFER_SIZE }) {
     this._buffer = [];
     if (!isSafePositiveInteger(bufferSize)) {
       throw new InitializationError(
@@ -18,13 +18,14 @@ export class EventManager {
     this._bufferSize = bufferSize;
     this._productId = productId;
     this._userId = userId;
+    this._groupId = groupId;
     this.unload = false;
     this._initEvents();
   }
 
   add({ event, count = 1, groups, data, time }) {
     const eventObj = EventFactory.createEvent({
-      userId: this._userId,
+      userId: this._groupId,
       event,
       groups,
       count,
@@ -55,6 +56,12 @@ export class EventManager {
   _initEvents() {
     window.addEventListener("beforeunload", this._handleWindowUnload, true);
     document.addEventListener("click", this._handleElementClick, true);
+    this.add({
+      event: DEFAULT_EVENTS.SESSION_START,
+      count: 1,
+      data: { "userId": this._userId },
+      groups: ["session"]
+    });
   }
 
   _handleWindowUnload = () => {
@@ -62,7 +69,8 @@ export class EventManager {
     this.add({
       event: DEFAULT_EVENTS.SESSION_END,
       count: 1,
-      groups: ["session"]
+      groups: ["session"],
+      data: { "userId": this._userId },
     });
     saveEvents(this._buffer, this._productId, true);
   };
@@ -72,7 +80,8 @@ export class EventManager {
     this.add({
       event: hashCode(hashStr).toString(),
       count: 1,
-      groups: ["click"]
+      groups: ["click"],
+      data: { "userId": this._userId },
     });
   };
 }
