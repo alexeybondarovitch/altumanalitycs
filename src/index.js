@@ -25,7 +25,7 @@ class AltumAnalytics {
     // override previous settings
     _config = { ..._config, ...config };
 
-    const { productId, userId, groupId, options } = config;
+    const { productId, userId, groupId, options } = _config;
 
     let errArg = null;
     if (!productId) {
